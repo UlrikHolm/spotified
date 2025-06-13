@@ -39,7 +39,7 @@ export class Artist extends ReadWriteBaseClient {
    * https://developer.spotify.com/documentation/web-api/reference/get-an-artists-top-tracks
    */
   getArtistTopTracks(id: string, optionalParams?: GetMarketParams) {
-    return this.get<Tracks>(`/artist/${id}/top-tracks`, optionalParams);
+    return this.get<Tracks>(`/artists/${id}/top-tracks`, optionalParams);
   }
 
   /**
