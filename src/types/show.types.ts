@@ -32,10 +32,6 @@ export interface Show extends SimplifiedShow {
   } & PaginationResponseProps;
 }
 
-export interface Shows {
-  shows: SimplifiedShow[];
-}
-
 export interface GetShowEpisodesOptionalParams extends PaginationParams {
   market?: string;
 }
@@ -58,5 +54,3 @@ export interface UserSavedShows extends PaginationResponseProps {
 export interface GetShowParams {
   market?: string;
 }
-
-export type RemoveUsersShowsOptionalParams = OptionalParams;
