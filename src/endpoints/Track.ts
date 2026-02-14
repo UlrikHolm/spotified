@@ -1,6 +1,5 @@
 import { ReadWriteBaseClient } from '../client/ReadWriteBaseClient.js';
 import { GetTrackParams, OptionalUserSavedTrackParams, Track as TrackDetail, UserSavedTracks } from '../types/index.js';
-import { joinIdsArrayToString } from '../utils.js';
 
 export class Track extends ReadWriteBaseClient {
   /**

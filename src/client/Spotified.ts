@@ -5,9 +5,6 @@ import {
   Artist,
   Track,
   Player,
-  Market,
-  Genre,
-  Category,
   Search,
   Show,
   Episode,
@@ -29,12 +26,6 @@ export class Spotified extends ReadWriteBaseClient {
   protected _track?: Track;
 
   protected _player?: Player;
-
-  protected _market?: Market;
-
-  protected _genre?: Genre;
-
-  protected _category?: Category;
 
   protected _album?: Album;
 
@@ -89,30 +80,6 @@ export class Spotified extends ReadWriteBaseClient {
     }
     this._player = new Player(this._requestMaker);
     return this._player;
-  }
-
-  public get market() {
-    if (this._market) {
-      return this._market;
-    }
-    this._market = new Market(this._requestMaker);
-    return this._market;
-  }
-
-  public get genre() {
-    if (this._genre) {
-      return this._genre;
-    }
-    this._genre = new Genre(this._requestMaker);
-    return this._genre;
-  }
-
-  public get category() {
-    if (this._category) {
-      return this._category;
-    }
-    this._category = new Category(this._requestMaker);
-    return this._category;
   }
 
   public get album() {
