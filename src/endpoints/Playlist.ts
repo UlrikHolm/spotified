@@ -75,11 +75,11 @@ export class Playlist extends ReadWriteBaseClient {
   }
 
   /**
-   * Create a playlist for a Spotify user.
+   * Create a playlist for the current Spotify user.
    * https://developer.spotify.com/documentation/web-api/reference/create-playlist
    */
   createPlaylist(playlistName: string, optionalParams: CreatePlaylistOptionalParams) {
-    return this.post<PlaylistDetail>(`/users/me/playlists`, { name: playlistName, ...optionalParams });
+    return this.post<PlaylistDetail>(`/me/playlists`, { name: playlistName, ...optionalParams });
   }
 
   /**

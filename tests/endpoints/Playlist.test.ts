@@ -183,7 +183,7 @@ describe('Playlist', () => {
 
       const result = await playlist.createPlaylist(mockPlaylistName, mockParams);
 
-      expect(playlist['post']).toHaveBeenCalledWith(`/users/me/playlists`, {
+      expect(playlist['post']).toHaveBeenCalledWith(`/me/playlists`, {
         name: mockPlaylistName,
         ...mockParams,
       });
