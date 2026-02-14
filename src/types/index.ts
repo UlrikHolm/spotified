@@ -9,7 +9,6 @@ export * from './response.types.js';
 export * from './album.types.js';
 export * from './track.types.js';
 export * from './player.types.js';
-export * from './category.types.js';
 export * from './audiobook.types.js';
 export * from './chapter.types.js';
 export * from './show.types.js';
