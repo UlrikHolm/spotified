@@ -11,7 +11,6 @@ export interface Narrator {
 
 export interface SimplifiedAudiobook {
   authors: Author[];
-  available_markets: string[];
   copyrights: Copyright[];
   description: string;
   html_description: string;
@@ -25,7 +24,6 @@ export interface SimplifiedAudiobook {
   media_type: string;
   name: string;
   narrators: Narrator[];
-  publisher: string;
   type: 'audiobook';
   uri: string;
   total_chapters: number;
@@ -41,10 +39,6 @@ export interface GetAudiobookOptionalParams {
 
 export interface GetAudiobookChaptersOptionalParams extends PaginationParams {
   market?: string;
-}
-
-export interface Audiobooks {
-  audiobooks: Audiobook[];
 }
 
 export interface UserSavedAudiobooks extends PaginationResponseProps {
