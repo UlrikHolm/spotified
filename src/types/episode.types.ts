@@ -10,7 +10,6 @@ import {
 import { SimplifiedShow } from './show.types.js';
 
 export interface SimplifiedEpisode {
-  audio_preview_url: string | null;
   description: string;
   html_description: string;
   duration_ms: number;
@@ -21,7 +20,6 @@ export interface SimplifiedEpisode {
   images: Image[];
   is_externally_hosted: boolean;
   is_playable: boolean;
-  languages: string[];
   name: string;
   release_date: string;
   release_date_precision: string;
@@ -33,10 +31,6 @@ export interface SimplifiedEpisode {
 
 export interface Episode extends SimplifiedEpisode {
   show: SimplifiedShow;
-}
-
-export interface Episodes {
-  episodes: Episode[];
 }
 
 interface SavedEpisode {
