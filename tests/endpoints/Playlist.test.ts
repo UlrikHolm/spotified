@@ -3,8 +3,6 @@ import {
   Playlist as PlaylistDetail,
   PlaylistItems,
   UserPlaylist,
-  FeaturedPlaylist,
-  CategoryPlaylist,
   Image,
   GetPlaylistOptionalParams,
   ChangePlaylistDetailsOptionalParams,
@@ -13,8 +11,6 @@ import {
   AddItemsToPlaylistOptionalParams,
   RemovePlaylistItemsParams,
   GetUserSavedPlaylistsOptionalParams,
-  GetCategoryPlaylistOptionalParams,
-  GetFeaturedPlaylistOptionalParams,
 } from '../../src/types';
 
 jest.mock('../../src/client/ReadWriteBaseClient');
@@ -41,7 +37,7 @@ describe('Playlist', () => {
       const mockResponse: PlaylistDetail = {
         id: 'playlist123',
         name: 'Test Playlist',
-        tracks: {
+        items: {
           items: [],
           total: 0,
           limit: 100,
@@ -81,7 +77,7 @@ describe('Playlist', () => {
         offset: 0,
       };
       const mockResponse: PlaylistItems = {
-        href: 'https://api.spotify.com/v1/playlists/playlist123/tracks',
+        href: 'https://api.spotify.com/v1/playlists/playlist123/items',
         items: [],
         limit: 20,
         next: null,
@@ -93,7 +89,7 @@ describe('Playlist', () => {
 
       const result = await playlist.getPlaylistItems(mockId, mockParams);
 
-      expect(playlist['get']).toHaveBeenCalledWith(`/playlists/${mockId}/tracks`, mockParams);
+      expect(playlist['get']).toHaveBeenCalledWith(`/playlists/${mockId}/items`, mockParams);
       expect(result).toEqual(mockResponse);
     });
   });
@@ -113,7 +109,7 @@ describe('Playlist', () => {
 
       const result = await playlist.updatePlaylistItems(mockId, mockParams);
 
-      expect(playlist['put']).toHaveBeenCalledWith(`/playlists/${mockId}/tracks`, mockParams);
+      expect(playlist['put']).toHaveBeenCalledWith(`/playlists/${mockId}/items`, mockParams);
       expect(result).toEqual(mockResponse);
     });
   });
@@ -130,7 +126,7 @@ describe('Playlist', () => {
 
       const result = await playlist.addItemsToPlaylist(mockId, mockParams);
 
-      expect(playlist['post']).toHaveBeenCalledWith(`/playlists/${mockId}/tracks`, mockParams);
+      expect(playlist['post']).toHaveBeenCalledWith(`/playlists/${mockId}/items`, mockParams);
       expect(result).toEqual(mockResponse);
     });
   });
@@ -147,7 +143,7 @@ describe('Playlist', () => {
 
       const result = await playlist.removePlaylistItems(mockId, mockParams);
 
-      expect(playlist['delete']).toHaveBeenCalledWith(`/playlists/${mockId}/tracks`, mockParams);
+      expect(playlist['delete']).toHaveBeenCalledWith(`/playlists/${mockId}/items`, mockParams);
       expect(result).toEqual(mockResponse);
     });
   });
@@ -173,31 +169,8 @@ describe('Playlist', () => {
     });
   });
 
-  describe('getUserPlaylists', () => {
-    it('should call get method with correct params and return expected result', async () => {
-      const mockUserId = 'user123';
-      const mockParams: GetUserSavedPlaylistsOptionalParams = { limit: 20, offset: 0 };
-      const mockResponse: UserPlaylist = {
-        href: 'https://api.spotify.com/v1/users/user123/playlists',
-        items: [],
-        limit: 20,
-        next: null,
-        offset: 0,
-        previous: null,
-        total: 0,
-      };
-      (playlist['get'] as jest.Mock).mockResolvedValue(mockResponse);
-
-      const result = await playlist.getUserPlaylists(mockUserId, mockParams);
-
-      expect(playlist['get']).toHaveBeenCalledWith(`/users/${mockUserId}/playlists`, mockParams);
-      expect(result).toEqual(mockResponse);
-    });
-  });
-
   describe('createPlaylist', () => {
     it('should call post method with correct params and return expected result', async () => {
-      const mockUserId = 'user123';
       const mockPlaylistName = 'My New Playlist';
       const mockParams = { public: false, description: 'My new playlist description' };
       const mockResponse: PlaylistDetail = {
@@ -208,60 +181,12 @@ describe('Playlist', () => {
       } as PlaylistDetail;
       (playlist['post'] as jest.Mock).mockResolvedValue(mockResponse);
 
-      const result = await playlist.createPlaylist(mockUserId, mockPlaylistName, mockParams);
+      const result = await playlist.createPlaylist(mockPlaylistName, mockParams);
 
-      expect(playlist['post']).toHaveBeenCalledWith(`/users/${mockUserId}/playlists`, {
+      expect(playlist['post']).toHaveBeenCalledWith(`/users/me/playlists`, {
         name: mockPlaylistName,
         ...mockParams,
       });
-      expect(result).toEqual(mockResponse);
-    });
-  });
-
-  describe('getFeaturedPlaylist', () => {
-    it('should call get method with correct params and return expected result', async () => {
-      const mockParams: GetFeaturedPlaylistOptionalParams = { locale: 'en_US', limit: 20, offset: 0 };
-      const mockResponse: FeaturedPlaylist = {
-        message: "Editor's picks",
-        playlists: {
-          href: 'https://api.spotify.com/v1/browse/featured-playlists',
-          items: [],
-          limit: 20,
-          next: null,
-          offset: 0,
-          previous: null,
-          total: 0,
-        },
-      };
-      (playlist['get'] as jest.Mock).mockResolvedValue(mockResponse);
-
-      const result = await playlist.getFeaturedPlaylist(mockParams);
-
-      expect(playlist['get']).toHaveBeenCalledWith('/browse/featured-playlists', mockParams);
-      expect(result).toEqual(mockResponse);
-    });
-  });
-
-  describe('getCategoryPlaylist', () => {
-    it('should call get method with correct params and return expected result', async () => {
-      const mockCategoryId = 'party';
-      const mockParams: GetCategoryPlaylistOptionalParams = { limit: 20, offset: 0 };
-      const mockResponse: CategoryPlaylist = {
-        playlists: {
-          href: 'https://api.spotify.com/v1/browse/categories/party/playlists',
-          items: [],
-          limit: 20,
-          next: null,
-          offset: 0,
-          previous: null,
-          total: 0,
-        },
-      };
-      (playlist['get'] as jest.Mock).mockResolvedValue(mockResponse);
-
-      const result = await playlist.getCategoryPlaylist(mockCategoryId, mockParams);
-
-      expect(playlist['get']).toHaveBeenCalledWith(`/browse/categories/${mockCategoryId}/playlists`, mockParams);
       expect(result).toEqual(mockResponse);
     });
   });

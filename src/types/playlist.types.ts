@@ -39,6 +39,7 @@ export interface SimplifiedPlaylist {
   owner?: Owner;
   public?: boolean;
   snapshot_id?: string;
+  items?: { items: PlaylistTrack[] } & PaginationResponseProps;
   type?: string;
   uri?: string;
 }
