@@ -1,5 +1,5 @@
 import { SimplifiedAlbum } from './album.types.js';
-import { ExternalUrls, Followers, Image, PaginationParams, PaginationResponseProps } from './shared.types.js';
+import { ExternalUrls, Image, PaginationParams, PaginationResponseProps } from './shared.types.js';
 
 export interface SimplifiedArtist {
   external_urls?: ExternalUrls;
@@ -11,14 +11,7 @@ export interface SimplifiedArtist {
 }
 
 export interface Artist extends SimplifiedArtist {
-  followers?: Followers;
-  genres?: string[];
   images?: Image[];
-  popularity?: number;
-}
-
-export interface Artists {
-  artists: Artist[];
 }
 
 export interface OptionalArtistAlbumParams extends PaginationParams {
