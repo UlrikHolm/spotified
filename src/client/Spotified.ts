@@ -12,6 +12,7 @@ import {
   Chapter,
   Album,
   Audiobook,
+  Library,
 } from '../endpoints/index.js';
 import RequestMaker from '../client-helpers/RequestMaker.js';
 import Auth from '../auth/Auth.js';
@@ -40,6 +41,8 @@ export class Spotified extends ReadWriteBaseClient {
   protected _show?: Show;
 
   protected _search?: Search;
+
+  protected _library?: Library;
 
   constructor(credentials: OAuth2Credentials) {
     super(new RequestMaker());
@@ -136,6 +139,14 @@ export class Spotified extends ReadWriteBaseClient {
     }
     this._search = new Search(this._requestMaker);
     return this._search;
+  }
+
+  public get library() {
+    if (this._library) {
+      return this._library;
+    }
+    this._library = new Library(this._requestMaker);
+    return this._library;
   }
 
   setBearerToken(bearerToken: string) {

@@ -1,5 +1,5 @@
 import { Library } from '../../src/endpoints/Library';
-import { joinUrisArrayToString } from '../../src/utils';
+import { joinUrisArrayToString, generateQueryParametersString } from '../../src/utils';
 
 jest.mock('../../src/client/ReadWriteBaseClient');
 jest.mock('../../src/utils');
@@ -16,24 +16,26 @@ describe('Library', () => {
   });
 
   describe('saveItemsToLibrary', () => {
-    it('should call put method with correct params and return expected result', async () => {
+    it('should call put method with correct params', async () => {
       const mockUris = ['spotify:track:1234', 'spotify:album:5678'];
-      (joinUrisArrayToString as jest.Mock).mockReturnValue('spotify:track:1234,spotify:album:5678');
+      (generateQueryParametersString as jest.Mock).mockReturnValue('?uris=spotify:track:1234,spotify:album:5678');
+      (library['put'] as jest.Mock).mockResolvedValue({});
 
       await library.saveItemsToLibrary(mockUris);
 
-      expect(library['put']).toHaveBeenCalledWith(`/me/library`, { uris: joinUrisArrayToString(mockUris) });
+      expect(library['put']).toHaveBeenCalledWith('/me/library?uris=spotify:track:1234,spotify:album:5678');
     });
   });
 
   describe('removeItemsFromLibrary', () => {
-    it('should call delete method with correct params and return expected result', async () => {
+    it('should call delete method with correct params', async () => {
       const mockUris = ['spotify:track:1234', 'spotify:album:5678'];
-      (joinUrisArrayToString as jest.Mock).mockReturnValue('spotify:track:1234,spotify:album:5678');
+      (generateQueryParametersString as jest.Mock).mockReturnValue('?uris=spotify:track:1234,spotify:album:5678');
+      (library['delete'] as jest.Mock).mockResolvedValue({});
 
       await library.removeItemsFromLibrary(mockUris);
 
-      expect(library['delete']).toHaveBeenCalledWith(`/me/library`, { uris: joinUrisArrayToString(mockUris) });
+      expect(library['delete']).toHaveBeenCalledWith('/me/library?uris=spotify:track:1234,spotify:album:5678');
     });
   });
 

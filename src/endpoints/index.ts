@@ -9,3 +9,4 @@ export * from './Show.js';
 export * from './Album.js';
 export * from './Audiobook.js';
 export * from './Playlist.js';
+export * from './Library.js';
