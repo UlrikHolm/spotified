@@ -1,8 +1,6 @@
 import {
-  FeaturedPlaylist,
   GetUserSavedPlaylistsOptionalParams,
   Image,
-  GetFeaturedPlaylistOptionalParams,
   ChangePlaylistDetailsOptionalParams,
   GetPlaylistItemsOptionalParams,
   GetPlaylistOptionalParams,
@@ -16,8 +14,6 @@ import {
   RemovePlaylistItemsResponse,
   RemovePlaylistItemsParams,
   CreatePlaylistOptionalParams,
-  GetCategoryPlaylistOptionalParams,
-  CategoryPlaylist,
 } from '../types/index.js';
 import { ReadWriteBaseClient } from '../client/ReadWriteBaseClient.js';
 
@@ -43,7 +39,7 @@ export class Playlist extends ReadWriteBaseClient {
    * https://developer.spotify.com/documentation/web-api/reference/get-playlists-tracks
    */
   getPlaylistItems(playlistId: string, optionalParams?: GetPlaylistItemsOptionalParams) {
-    return this.get<PlaylistItems>(`/playlists/${playlistId}/tracks`, optionalParams);
+    return this.get<PlaylistItems>(`/playlists/${playlistId}/items`, optionalParams);
   }
 
   /**
@@ -51,7 +47,7 @@ export class Playlist extends ReadWriteBaseClient {
    * https://developer.spotify.com/documentation/web-api/reference/reorder-or-replace-playlists-tracks
    */
   updatePlaylistItems(playlistId: string, optionalParams?: UpdatePlaylistItemsOptionalParams) {
-    return this.put<UpdatePlaylistItemsResponse>(`/playlists/${playlistId}/tracks`, optionalParams);
+    return this.put<UpdatePlaylistItemsResponse>(`/playlists/${playlistId}/items`, optionalParams);
   }
 
   /**
@@ -59,7 +55,7 @@ export class Playlist extends ReadWriteBaseClient {
    * https://developer.spotify.com/documentation/web-api/reference/add-tracks-to-playlist
    */
   addItemsToPlaylist(playlistId: string, optionalParams: AddItemsToPlaylistOptionalParams) {
-    return this.post<AddItemsToPlaylistResponse>(`/playlists/${playlistId}/tracks`, optionalParams);
+    return this.post<AddItemsToPlaylistResponse>(`/playlists/${playlistId}/items`, optionalParams);
   }
 
   /**
@@ -67,7 +63,7 @@ export class Playlist extends ReadWriteBaseClient {
    * https://developer.spotify.com/documentation/web-api/reference/remove-tracks-playlist
    */
   removePlaylistItems(playlistId: string, bodyParams: RemovePlaylistItemsParams) {
-    return this.delete<RemovePlaylistItemsResponse>(`/playlists/${playlistId}/tracks`, bodyParams);
+    return this.delete<RemovePlaylistItemsResponse>(`/playlists/${playlistId}/items`, bodyParams);
   }
 
   /**
@@ -79,35 +75,11 @@ export class Playlist extends ReadWriteBaseClient {
   }
 
   /**
-   * Get a list of the playlists owned or followed by a Spotify user.
-   * https://developer.spotify.com/documentation/web-api/reference/get-list-users-playlists
-   */
-  getUserPlaylists(userId: string, optionalParams?: GetUserSavedPlaylistsOptionalParams) {
-    return this.get<UserPlaylist>(`/users/${userId}/playlists`, optionalParams);
-  }
-
-  /**
-   * Create a playlist for a Spotify user.
+   * Create a playlist for the current Spotify user.
    * https://developer.spotify.com/documentation/web-api/reference/create-playlist
    */
-  createPlaylist(userId: string, playlistName: string, optionalParams: CreatePlaylistOptionalParams) {
-    return this.post<PlaylistDetail>(`/users/${userId}/playlists`, { name: playlistName, ...optionalParams });
-  }
-
-  /**
-   * Get a list of Spotify featured playlists (shown, for example, on a Spotify player's 'Browse' tab).
-   * https://developer.spotify.com/documentation/web-api/reference/get-featured-playlists
-   */
-  getFeaturedPlaylist(optionalParams?: GetFeaturedPlaylistOptionalParams) {
-    return this.get<FeaturedPlaylist>(`/browse/featured-playlists`, optionalParams);
-  }
-
-  /**
-   * Get a list of Spotify playlists tagged with a particular category.
-   * https://developer.spotify.com/documentation/web-api/reference/get-a-categories-playlists
-   */
-  getCategoryPlaylist(categoryId: string, optionalParams?: GetCategoryPlaylistOptionalParams) {
-    return this.get<CategoryPlaylist>(`/browse/categories/${categoryId}/playlists`, optionalParams);
+  createPlaylist(playlistName: string, optionalParams: CreatePlaylistOptionalParams) {
+    return this.post<PlaylistDetail>(`/me/playlists`, { name: playlistName, ...optionalParams });
   }
 
   /**

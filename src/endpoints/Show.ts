@@ -1,4 +1,3 @@
-import joinIdsArrayToString, { generateQueryParametersString } from '../utils.js';
 import { ReadWriteBaseClient } from '../client/ReadWriteBaseClient.js';
 import {
   GetShowParams,
@@ -7,8 +6,6 @@ import {
   UserSavedShows,
   GetShowEpisodesOptionalParams,
   GetUsersSavedShowsOptionalParams,
-  RemoveUsersShowsOptionalParams,
-  Shows,
 } from '../types/index.js';
 
 export class Show extends ReadWriteBaseClient {
@@ -18,14 +15,6 @@ export class Show extends ReadWriteBaseClient {
    */
   getShow(id: string, optionalParams?: GetShowParams) {
     return this.get<ShowDetail>(`/shows/${id}`, optionalParams);
-  }
-
-  /**
-   * Get Spotify catalog information for several shows based on their Spotify IDs.
-   * https://developer.spotify.com/documentation/web-api/reference/get-multiple-shows
-   */
-  getSeveralShows(ids: string[], optionalParams?: GetShowParams) {
-    return this.get<Shows>(`/shows`, { ids: joinIdsArrayToString(ids), ...optionalParams });
   }
 
   /**
@@ -44,32 +33,6 @@ export class Show extends ReadWriteBaseClient {
    */
   getUsersSavedShows(optionalParams?: GetUsersSavedShowsOptionalParams) {
     return this.get<UserSavedShows>(`/me/shows`, optionalParams);
-  }
-
-  /**
-   * Save one or more shows to current Spotify user's library.
-   * https://developer.spotify.com/documentation/web-api/reference/save-shows-user
-   */
-  saveShowsForCurrentUser(ids: string[]) {
-    return this.put(`/me/shows${generateQueryParametersString({ ids: joinIdsArrayToString(ids) })}`);
-  }
-
-  /**
-   * Delete one or more shows from current Spotify user's library.
-   * https://developer.spotify.com/documentation/web-api/reference/remove-shows-user
-   */
-  removeUserSavedShows(ids: string[], optionalParams: RemoveUsersShowsOptionalParams) {
-    return this.delete(
-      `/me/shows${generateQueryParametersString({ ids: joinIdsArrayToString(ids), ...optionalParams })}`
-    );
-  }
-
-  /**
-   * Check if one or more shows is already saved in the current Spotify user's library.
-   * https://developer.spotify.com/documentation/web-api/reference/check-users-saved-shows
-   */
-  checkUserSavedShows(ids: string[]) {
-    return this.get<Array<boolean>>(`/me/shows/contains`, { ids: joinIdsArrayToString(ids) });
   }
 }
 

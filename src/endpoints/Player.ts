@@ -54,9 +54,10 @@ export class Player extends ReadWriteBaseClient {
 
   /**
    * Start a new context or resume current playback on the user's active device
+   * If devideId is not supplied, the user's currently active device is the target.
    * https://developer.spotify.com/documentation/web-api/reference/start-a-users-playback
    */
-  startResumePlayback(deviceId: string, params: ResumePlaybackParams) {
+  startResumePlayback(params: ResumePlaybackParams, deviceId?: string) {
     this.put(`/me/player/play${generateQueryParametersString({ device_id: deviceId })}`, params);
   }
 

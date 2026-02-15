@@ -73,7 +73,7 @@ describe('Player', () => {
       (generateQueryParametersString as jest.Mock).mockReturnValue('?device_id=device1');
       (player['put'] as jest.Mock).mockResolvedValue({});
 
-      await player.startResumePlayback(mockDeviceId, mockParams);
+      await player.startResumePlayback(mockParams, mockDeviceId);
 
       expect(player['put']).toHaveBeenCalledWith('/me/player/play?device_id=device1', mockParams);
     });

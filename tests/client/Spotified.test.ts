@@ -6,9 +6,6 @@ import {
   Artist,
   Track,
   Player,
-  Market,
-  Genre,
-  Category,
   Album,
   Audiobook,
   Chapter,
@@ -24,9 +21,6 @@ jest.mock('../../src/endpoints/User');
 jest.mock('../../src/endpoints/Artist');
 jest.mock('../../src/endpoints/Track');
 jest.mock('../../src/endpoints/Player');
-jest.mock('../../src/endpoints/Market');
-jest.mock('../../src/endpoints/Genre');
-jest.mock('../../src/endpoints/Category');
 jest.mock('../../src/endpoints/Album');
 jest.mock('../../src/endpoints/Audiobook');
 jest.mock('../../src/endpoints/Chapter');
@@ -120,51 +114,6 @@ describe('Spotified', () => {
       const player2 = spotified.player;
       expect(player1).toBe(player2);
       expect(Player).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('market getter', () => {
-    it('should create and return a Market instance', () => {
-      const { market } = spotified;
-      expect(market).toBeInstanceOf(Market);
-      expect(Market).toHaveBeenCalledTimes(1);
-    });
-
-    it('should return the same Market instance on subsequent calls', () => {
-      const market1 = spotified.market;
-      const market2 = spotified.market;
-      expect(market1).toBe(market2);
-      expect(Market).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('genre getter', () => {
-    it('should create and return a Genre instance', () => {
-      const { genre } = spotified;
-      expect(genre).toBeInstanceOf(Genre);
-      expect(Genre).toHaveBeenCalledTimes(1);
-    });
-
-    it('should return the same Genre instance on subsequent calls', () => {
-      const genre1 = spotified.genre;
-      const genre2 = spotified.genre;
-      expect(genre1).toBe(genre2);
-      expect(Genre).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('category getter', () => {
-    it('should create and return a Category instance', () => {
-      const { category } = spotified;
-      expect(category).toBeInstanceOf(Category);
-      expect(Category).toHaveBeenCalledTimes(1);
-    });
-
-    it('should return the same Category instance on subsequent calls', () => {
-      const category1 = spotified.category;
-      const category2 = spotified.category;
-      expect(category1).toBe(category2);
-      expect(Category).toHaveBeenCalledTimes(1);
     });
   });
 

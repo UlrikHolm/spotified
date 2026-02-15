@@ -9,7 +9,6 @@ import {
 } from './shared.types.js';
 
 export interface SimplifiedShow {
-  available_markets: string[];
   copyrights: Copyright[];
   description: string;
   html_description: string;
@@ -22,7 +21,6 @@ export interface SimplifiedShow {
   languages: string[];
   media_type: string;
   name: string;
-  publisher: string;
   type: 'show';
   uri: string;
   total_episodes: number;
@@ -32,10 +30,6 @@ export interface Show extends SimplifiedShow {
   episodes: {
     items: SimplifiedEpisode[];
   } & PaginationResponseProps;
-}
-
-export interface Shows {
-  shows: SimplifiedShow[];
 }
 
 export interface GetShowEpisodesOptionalParams extends PaginationParams {
@@ -60,5 +54,3 @@ export interface UserSavedShows extends PaginationResponseProps {
 export interface GetShowParams {
   market?: string;
 }
-
-export type RemoveUsersShowsOptionalParams = OptionalParams;

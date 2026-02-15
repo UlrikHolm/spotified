@@ -1,6 +1,5 @@
 import {
   Copyright,
-  ExternalIds,
   ExternalUrls,
   Image,
   OptionalParams,
@@ -14,7 +13,6 @@ import { SimplifiedTrack } from './track.types.js';
 export interface SimplifiedAlbum {
   album_type: string;
   artists: SimplifiedArtist[];
-  available_markets: string[];
   external_urls: ExternalUrls;
   href: string;
   id: string;
@@ -35,14 +33,6 @@ export interface AlbumTracks extends PaginationResponseProps {
 export interface Album extends SimplifiedAlbum {
   tracks: AlbumTracks;
   copyrights: Copyright[];
-  external_ids: ExternalIds;
-  genres: string[];
-  label: string;
-  popularity: number;
-}
-
-export interface Albums {
-  albums: SimplifiedAlbum[];
 }
 
 export type GetAlbumOptionalParams = OptionalParams;
@@ -61,9 +51,3 @@ interface SavedAlbum {
 export interface UserSavedAlbum extends PaginationResponseProps {
   items: SavedAlbum[];
 }
-
-export interface PagedAlbums extends PaginationResponseProps {
-  items: SimplifiedAlbum[];
-}
-
-export type GetNewReleasesOptionalParams = PaginationParams;

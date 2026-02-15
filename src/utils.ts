@@ -2,6 +2,10 @@ export function joinIdsArrayToString(ids: string[]) {
   return ids.join(',');
 }
 
+export function joinUrisArrayToString(ids: string[]) {
+  return ids.join(',');
+}
+
 export function generateQueryParametersString(params: Record<string, string | number | boolean | undefined>): string {
   const queryParams = new URLSearchParams();
 

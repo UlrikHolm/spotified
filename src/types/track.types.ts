@@ -15,17 +15,8 @@ export interface OptionalUserSavedTrackParams extends PaginationParams {
   market?: string;
 }
 
-export interface LinkedFrom {
-  external_urls: ExternalUrls;
-  href: string;
-  id: string;
-  type: string;
-  uri: string;
-}
-
 export interface SimplifiedTrack {
   artists?: SimplifiedArtist[];
-  available_markets?: string[];
   disc_number?: number;
   duration_ms?: number;
   explicit?: boolean;
@@ -33,10 +24,8 @@ export interface SimplifiedTrack {
   href?: string;
   id?: string;
   is_playable?: boolean;
-  linked_from?: Partial<LinkedFrom>;
   restrictions?: Restrictions;
   name?: string;
-  preview_url?: string | null;
   track_number?: number;
   type?: string;
   uri?: string;
@@ -47,10 +36,6 @@ export interface Track extends SimplifiedTrack {
   album?: SimplifiedAlbum;
   external_ids?: ExternalIds;
   popularity?: number;
-}
-
-export interface Tracks {
-  tracks: Track[];
 }
 
 export interface TrackParams {
@@ -70,31 +55,6 @@ interface SavedTrack {
 
 export interface UserSavedTracks extends PaginationResponseProps {
   items: SavedTrack[];
-}
-
-export interface AudioFeatures {
-  acousticness?: number;
-  analysis_url?: string;
-  danceability?: number;
-  duration_ms?: number;
-  energy?: number;
-  id?: string;
-  instrumentalness?: number;
-  key?: number;
-  liveness?: number;
-  loudness?: number;
-  mode?: number;
-  speechiness?: number;
-  tempo?: number;
-  time_signature?: number;
-  track_href?: string;
-  type?: string;
-  uri?: string;
-  valence?: number;
-}
-
-export interface AudioFeaturesArray {
-  audio_features: AudioFeatures[];
 }
 
 export interface TimeConfidenceInfo {
@@ -169,68 +129,6 @@ export interface TrackAudioAnalysisDetail {
   rhythm_version?: number;
 }
 
-export interface AudioAnalysis {
-  meta?: Meta;
-  track?: TrackAudioAnalysisDetail;
-  bars?: TimeConfidenceInfo[];
-  beats?: TimeConfidenceInfo[];
-  sections?: Section[];
-  segments?: Segment[];
-  tatums?: TimeConfidenceInfo[];
-}
-
-export interface RecommendationOptionalParams {
-  limit?: number;
-  market?: string;
-  min_acousticness?: number;
-  max_acousticness?: number;
-  target_acousticness?: number;
-  min_danceability?: number;
-  max_danceability?: number;
-  target_danceability?: number;
-  min_duration_ms?: number;
-  max_duration_ms?: number;
-  target_duration_ms?: number;
-  min_energy?: number;
-  max_energy?: number;
-  target_energy?: number;
-  min_instrumentalness?: number;
-  max_instrumentalness?: number;
-  target_instrumentalness?: number;
-  min_key?: number;
-  max_key?: number;
-  target_key?: number;
-  min_liveness?: number;
-  max_liveness?: number;
-  target_liveness?: number;
-  min_loudness?: number;
-  max_loudness?: number;
-  target_loudness?: number;
-  min_mode?: number;
-  max_mode?: number;
-  target_mode?: number;
-  min_popularity?: number;
-  max_popularity?: number;
-  target_popularity?: number;
-  min_speechiness?: number;
-  max_speechiness?: number;
-  target_speechiness?: number;
-  min_tempo?: number;
-  max_tempo?: number;
-  target_tempo?: number;
-  min_time_signature?: number;
-  max_time_signature?: number;
-  target_time_signature?: number;
-  min_valence?: number;
-  max_valence?: number;
-  target_valence?: number;
-}
-
-export interface RecommendationSeedParams {
-  seed_artists: string;
-  seed_genres: string;
-  seed_tracks: string;
-}
 interface RecommendationSeeds {
   afterFilteringSize: number;
   afterRelinkingSize: number;
@@ -238,8 +136,4 @@ interface RecommendationSeeds {
   id: string;
   initialPoolSize: number;
   type: string;
-}
-export interface Recommendations {
-  seeds: RecommendationSeeds[];
-  tracks: Track[];
 }

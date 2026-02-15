@@ -2,8 +2,6 @@ import { SimplifiedAudiobook } from './audiobook.types.js';
 import { ExternalUrls, Image, OptionalParams, Restrictions, ResumePoint } from './shared.types.js';
 
 export interface SimplifiedChapter {
-  audio_preview_url: string | null;
-  available_markets?: string[];
   chapter_number: number;
   description: string;
   html_description: string;
@@ -26,10 +24,6 @@ export interface SimplifiedChapter {
 
 export interface Chapter extends SimplifiedChapter {
   audiobook: SimplifiedAudiobook;
-}
-
-export interface Chapters {
-  chapters: Chapter[];
 }
 
 export type GetChapterOptionalParams = OptionalParams;

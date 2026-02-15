@@ -25,7 +25,7 @@ interface PlaylistTrack {
   added_at?: string;
   added_by?: AddedBy;
   is_local?: boolean;
-  track?: Track | Episode;
+  item?: Track | Episode;
 }
 
 export interface SimplifiedPlaylist {
@@ -39,7 +39,7 @@ export interface SimplifiedPlaylist {
   owner?: Owner;
   public?: boolean;
   snapshot_id?: string;
-  tracks?: { items: PlaylistTrack[] } & PaginationResponseProps;
+  items?: { items: PlaylistTrack[] } & PaginationResponseProps;
   type?: string;
   uri?: string;
 }
@@ -49,15 +49,8 @@ export interface Playlist extends SimplifiedPlaylist {
 }
 
 export interface UserPlaylist extends PaginationResponseProps {
-  items: Array<Omit<SimplifiedPlaylist, 'tracks'> & { tracks: { href: string; total: number } }>;
+  items: Array<Omit<SimplifiedPlaylist, 'items'> & { items: { href: string; total: number } }>;
 }
-
-export interface FeaturedPlaylist {
-  message?: string;
-  playlists?: UserPlaylist;
-}
-
-export type CategoryPlaylist = FeaturedPlaylist;
 
 export interface GetPlaylistOptionalParams {
   market?: string;
@@ -111,9 +104,3 @@ export interface RemovePlaylistItemsParams {
 }
 
 export type GetUserSavedPlaylistsOptionalParams = PaginationParams;
-
-export type GetCategoryPlaylistOptionalParams = PaginationParams;
-
-export interface GetFeaturedPlaylistOptionalParams extends PaginationParams {
-  locale?: string;
-}
