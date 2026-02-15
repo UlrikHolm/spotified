@@ -80,7 +80,8 @@ export default class RequestMaker {
         );
       }
 
-      const data = await res.json();
+      const text = await res.text();
+      const data = text ? await JSON.parse(text) : null;
       const { headers } = res;
       return { data, headers } as SpotifiedResponse<T>;
     } catch (err) {
